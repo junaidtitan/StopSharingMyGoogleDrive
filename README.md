@@ -79,3 +79,44 @@ Enter the email of the user to remove: user@example.com
 Removing user@example.com from file1
 Removing user@example.com from file2
 ...
+```
+
+## Support
+
+If you encounter any issues or have questions, please open an issue on GitHub. Here are some common troubleshooting tips:
+
+### Environment Issues
+
+- Ensure that you are using the correct Python environment. Use `python3` and `pip3` to ensure compatibility.
+- If you encounter issues with package installation, make sure to upgrade `pip`:
+
+    ```sh
+    pip install --upgrade pip
+    ```
+
+- Verify the installed packages:
+
+    ```sh
+    pip3 list | grep google
+    ```
+
+### Common Errors
+
+- **ModuleNotFoundError: No module named 'google'**: Ensure you have installed the required packages with:
+
+    ```sh
+    pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+    ```
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request with any improvements or bug fixes.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+
+- [Google API Python Client](https://github.com/googleapis/google-api-python-client)
+- [Google Auth Library](https://github.com/googleapis/google-auth-library-python)
