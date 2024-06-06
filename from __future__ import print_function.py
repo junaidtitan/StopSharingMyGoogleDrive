@@ -1,11 +1,11 @@
 from __future__ import print_function
 import os.path
 import pickle
+import sys
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
 
 # If modifying these SCOPES, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/drive']
@@ -32,7 +32,7 @@ def main():
 
     service = build('drive', 'v3', credentials=creds)
 
-    user_email_to_remove = input("Enter the email of the user to remove: ")
+    user_email_to_remove = "email_to_remove@example.com"
     page_token = None
 
     while True:
@@ -52,15 +52,9 @@ def main():
             permissions = service.permissions().list(fileId=file_id, fields="permissions(id, emailAddress)").execute()
             for permission in permissions.get('permissions', []):
                 if permission['emailAddress'] == user_email_to_remove:
-                    try:
-                        print(f"Removing {user_email_to_remove} from {item['name']}")
-                        service.permissions().delete(fileId=file_id, permissionId=permission['id']).execute()
-                    except HttpError as error:
-                        if error.resp.status == 404:
-                            print(f"Permission not found for file {item['name']}. It might have already been removed.")
-                        else:
-                            print(f"An error occurred: {error}")
-        
+                    print(f"Removing {user_email_to_remove} from {item['name']}")
+                    service.permissions().delete(fileId=file_id, permissionId=permission['id']).execute()
+
         page_token = results.get('nextPageToken', None)
         if page_token is None:
             break
